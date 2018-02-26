@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/backgorud_holder_item_desable"
     android:layout_margin="4dp"
+    android:background="@drawable/backgorud_holder_item_desable"
     android:clickable="true"
+    android:focusable="true"
     android:focusableInTouchMode="true"
-    android:focusable="true">
+    android:orientation="vertical">
 
 
     <TextView
 
-        android:textColor="@color/textDeseable"
-        android:textSize="16sp"
-        android:padding="0sp"
         android:id="@+id/txtView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="0sp"
+        android:textColor="@color/textDeseable"
+        android:textSize="16sp" />
 
 </RelativeLayout>

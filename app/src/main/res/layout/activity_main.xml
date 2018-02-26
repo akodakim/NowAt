@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context="pt.ulusofona.copelabs.now.activities.NowMainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/horizontal_recycler_view"
-        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:background="#fff" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlue"
-        android:id="@+id/textView3"
-        android:textStyle="normal|bold"
-        android:gravity="left"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/horizontal_recycler_view"
-        android:layout_alignParentStart="true" />
+        android:background="@color/lightBlue"
+        android:gravity="left"
+        android:textStyle="normal|bold" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -32,9 +32,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="8dp"
-        android:elevation="10dp"
-        app:backgroundTint="@color/blue"
-        />
+        android:backgroundTint="@color/blue"
+        android:elevation="10dp" />
 
     <EditText
         android:id="@+id/editText"

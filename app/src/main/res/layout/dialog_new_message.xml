@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <ImageView
-        android:src="@drawable/ic_message_outline"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:scaleType="center"
         android:background="#FFFFBB33"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_message_outline" />
+
     <EditText
         android:id="@+id/username"
-        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="user" />
+        android:layout_marginTop="16dp"
+        android:hint="user"
+        android:inputType="textEmailAddress" />
 
     <Spinner
+        android:id="@+id/planets_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/planets_spinner"
         android:layout_weight="0.03" />
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.copelabs.now.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pt.ulusofona.copelabs.now.models.Message;
 
@@ -25,19 +26,19 @@ import pt.ulusofona.copelabs.now.models.Message;
 
 public class MessageArrayAdapter extends ArrayAdapter<Message> {
 
-    private ArrayList<Message> datos;
+    private List<Message> datos;
 
     /**
      * Constructor of MessageArrayAapter
      *
      * @param context Context of the application
-     * @param datos   ArrayList of data collection
+     * @param datos   List of data collection
      */
-    public MessageArrayAdapter(Context context, ArrayList datos) {
+    public MessageArrayAdapter(Context context, List<Message> datos) {
 
         super(context, R.layout.message_inf, datos);
         this.datos = datos;
-        // TODO Auto-generated constructor stub
+
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

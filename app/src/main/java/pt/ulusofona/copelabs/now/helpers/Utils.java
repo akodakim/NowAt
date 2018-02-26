@@ -21,6 +21,7 @@ import net.named_data.jndn.security.identity.MemoryPrivateKeyStorage;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public abstract class Utils {
 
@@ -82,7 +83,7 @@ public abstract class Utils {
      * @param listInforation List of information to display.
      * @param context Context of the application.
      */
-    public static void showListPrefix(ArrayList<String> listInforation, Context context, String title) {
+    public static void showListPrefix(List<String> listInforation, Context context, String title) {
         String[] information = listInforation.toArray(new String[listInforation.size()]);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)

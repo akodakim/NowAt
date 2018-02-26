@@ -72,7 +72,7 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
 
                 } else {
 
-                    holder.itemView.setBackground(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.backgorud_holder_item_desable, null));
+                    holder.itemView.setBackground(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.message_edit_text_background, null));
                     holder.txtView.setTextColor(mContext.getResources().getColor(R.color.textDeseable));
                     //ndnStop();
                     mNowMainActivityInterface.updateValueSelected(mHorizontalList.get(position));

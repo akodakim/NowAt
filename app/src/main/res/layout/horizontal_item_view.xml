@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/backgorud_holder_item_desable"
+    android:background="@drawable/message_edit_text_background"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"

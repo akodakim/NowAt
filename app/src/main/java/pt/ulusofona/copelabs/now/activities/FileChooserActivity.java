@@ -49,7 +49,7 @@ public class FileChooserActivity extends ListActivity {
 
 
                 File[] fbuf = ff.listFiles();
-                int buf = 0;
+                int buf;
                 if (fbuf != null) {
                     buf = fbuf.length;
                 } else buf = 0;
@@ -60,10 +60,9 @@ public class FileChooserActivity extends ListActivity {
                 //String formated = lastModDate.toString();
                 dir.add(new FileItem(ff.getName(), num_item, date_modify, ff.getAbsolutePath(), "ic_folder"));
             } else {
-                String extension = null;
+                String extension;
 
                 extension = ff.getName();
-                List<String> items = Arrays.asList(extension.split("\\s*.\\s*"));
                 String extensionRemoved = extension.split("\\.")[1];
                 Log.d("Extension1", extensionRemoved);
                 if ("png".equalsIgnoreCase(extensionRemoved) || "jpg".equalsIgnoreCase(extensionRemoved) || "jpeg".equalsIgnoreCase(extensionRemoved)) {

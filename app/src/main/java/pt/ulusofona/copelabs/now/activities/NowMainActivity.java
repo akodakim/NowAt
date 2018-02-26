@@ -61,9 +61,7 @@ import pt.ulusofona.copelabs.now.ndn.NDNParameters;
 
 public class NowMainActivity extends AppCompatActivity implements Observer, NowMainActivityInterface {
 
-    static final String MESSAGES = "messagues";
     static final String USER = "user";
-    private static final int REQUEST_PATH = 1;
     private TextView mLblNamePrefix;
     private String TAG = NowMainActivity.class.getSimpleName();
     private ArrayList<Message> mMenssages = new ArrayList<>();
@@ -75,7 +73,6 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
     private ArrayList<String> mInterestsSelected = new ArrayList<>();
     private ArrayList<String> mInteresSubscribed = new ArrayList<>();
     private ArrayList<String> mPrefixes = new ArrayList<>();
-    private int mPosition;
     private Face mFace;
     private User mUser;
     private ChronoSync ChronoSync;
@@ -156,7 +153,6 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
                     public void onItemSelected(AdapterView<?> parent,
                                                View v, int position, long id) {
                         interestSelected = parent.getItemAtPosition(position).toString();
-                        mPosition = position;
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {

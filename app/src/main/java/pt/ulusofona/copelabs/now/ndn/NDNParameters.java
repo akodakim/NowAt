@@ -15,8 +15,6 @@ import net.named_data.jndn.Face;
 
 public class NDNParameters {
 
-    private String TAG = NDNParameters.class.getSimpleName();
-
     private Face mFace;
 
     private String mApplicationNamePrefix;

@@ -1,5 +1,4 @@
 package pt.ulusofona.copelabs.now.ndn;
-import android.util.Log;
 
 import net.named_data.jndn.Face;
 /**

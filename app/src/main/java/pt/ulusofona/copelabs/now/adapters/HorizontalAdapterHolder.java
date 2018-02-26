@@ -2,8 +2,6 @@ package pt.ulusofona.copelabs.now.adapters;
 
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,7 +40,7 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
 
         public MyViewHolder(View view) {
             super(view);
-            txtView = (TextView) view.findViewById(R.id.txtView);
+            txtView = view.findViewById(R.id.txtView);
 
         }
      }

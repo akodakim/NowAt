@@ -4,10 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -23,14 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import pt.ulusofona.copelabs.now.adapters.HorizontalAdapterHolder;
-import pt.ulusofona.copelabs.now.adapters.MessageArrayAdapter;
 import com.example.copelabs.now.R;
-import pt.ulusofona.copelabs.now.helpers.Utils;
-import pt.ulusofona.copelabs.now.models.User;
-import pt.ulusofona.copelabs.now.ndn.ChronoSync;
-import pt.ulusofona.copelabs.now.models.Message;
-import pt.ulusofona.copelabs.now.ndn.NDNParameters;
 
 import net.named_data.jndn.Face;
 
@@ -45,6 +38,14 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.UUID;
+
+import pt.ulusofona.copelabs.now.adapters.HorizontalAdapterHolder;
+import pt.ulusofona.copelabs.now.adapters.MessageArrayAdapter;
+import pt.ulusofona.copelabs.now.helpers.Utils;
+import pt.ulusofona.copelabs.now.models.Message;
+import pt.ulusofona.copelabs.now.models.User;
+import pt.ulusofona.copelabs.now.ndn.ChronoSync;
+import pt.ulusofona.copelabs.now.ndn.NDNParameters;
 
 /**
  * This class is part of Now@ application. It extends to AppCompactActivity.
@@ -125,9 +126,9 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
         //Create a new User
         mUser = new User(Utils.generateRandomName());
 
-        mEditText = (EditText)findViewById(R.id.editText);
+        mEditText = findViewById(R.id.editText);
 
-        mLblNamePrefix = (TextView) findViewById(R.id.textView3);
+        mLblNamePrefix = findViewById(R.id.textView3);
         mLblNamePrefix.setText("User : " + mUser.getName());
 
         //Set up adapter for messages
@@ -135,18 +136,18 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
         mMenssages.clear();
 
         //Start listview with messages
-        ListView lstMessages = (ListView)findViewById(R.id.listView);
+        ListView lstMessages = findViewById(R.id.listView);
         lstMessages.setAdapter(mMenssageAdapter);
         List<String> mHorizontalList = Arrays.asList(getResources().getStringArray(R.array.interests));
 
         //Set up the RecyclerView with the interests
-        final RecyclerView mHorizontalRecyclerView = (RecyclerView) findViewById(R.id.horizontal_recycler_view);
+        final RecyclerView mHorizontalRecyclerView = findViewById(R.id.horizontal_recycler_view);
         final HorizontalAdapterHolder mHorizontalAdapterHolder = new HorizontalAdapterHolder(mHorizontalList, this, this);
         mHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         mHorizontalRecyclerView.setAdapter(mHorizontalAdapterHolder);
 
         //Set button to send message
-        ImageButton mBtnSend = (ImageButton) findViewById(R.id.imageButton);
+        ImageButton mBtnSend = findViewById(R.id.imageButton);
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(mInterestsSelected.isEmpty()) {
@@ -167,7 +168,7 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
         });
 
         //Set the spinner
-        mSpinner = (Spinner) findViewById(R.id.spinner3);
+        mSpinner = findViewById(R.id.spinner3);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mInterestsSelected);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setOnItemSelectedListener(

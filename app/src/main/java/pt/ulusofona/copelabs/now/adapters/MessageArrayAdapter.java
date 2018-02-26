@@ -8,9 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.copelabs.now.R;
-import pt.ulusofona.copelabs.now.models.Message;
 
 import java.util.ArrayList;
+
+import pt.ulusofona.copelabs.now.models.Message;
 /**
  * This class is part of Now@ application. It extends to ArrayAdapter. This class returns a view for
  * each object in a collection of data.
@@ -41,16 +42,16 @@ public class MessageArrayAdapter extends ArrayAdapter<Message> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View item = inflater.inflate(R.layout.message_inf, null);
 
-        TextView lblMessage = (TextView)item.findViewById(R.id.lblmessage);
+        TextView lblMessage = item.findViewById(R.id.lblmessage);
         lblMessage.setText(datos.get(position).getmMessage());
 
-        TextView lblSubtitulo = (TextView)item.findViewById(R.id.lbluser);
+        TextView lblSubtitulo = item.findViewById(R.id.lbluser);
         lblSubtitulo.setText(datos.get(position).getmUser());
 
-        TextView lblInterest = (TextView)item.findViewById(R.id.lblInterest);
+        TextView lblInterest = item.findViewById(R.id.lblInterest);
         lblInterest.setText("#"+datos.get(position).getmInterest());
 
-        TextView lblDate = (TextView)item.findViewById(R.id.lbldate);
+        TextView lblDate = item.findViewById(R.id.lbldate);
         lblDate.setText(datos.get(position).getmDate()+"");
 
         return(item);

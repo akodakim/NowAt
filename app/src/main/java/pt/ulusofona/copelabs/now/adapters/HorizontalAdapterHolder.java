@@ -14,18 +14,17 @@ import com.example.copelabs.now.R;
 import java.util.List;
 
 import pt.ulusofona.copelabs.now.activities.NowMainActivityInterface;
+
 /**
  * This class is part of Now@ application. It extends to ReyclerView.Adapter. This class returns
  * a view for each object in a collection of data.
- * @version 1.0
- * COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:06 PM
  *
  * @author Omar Aponte (COPELABS/ULHT)
+ * @version 1.0
+ *          COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:06 PM
  */
 
 public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdapterHolder.MyViewHolder> {
-
-    private String TAG = HorizontalAdapterHolder.class.getSimpleName();
 
     private List<String> mHorizontalList;
 
@@ -34,21 +33,11 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
     private NowMainActivityInterface mNowMainActivityInterface;
 
 
-     public class MyViewHolder extends RecyclerView.ViewHolder  {
-
-        private TextView txtView;
-
-        public MyViewHolder(View view) {
-            super(view);
-            txtView = view.findViewById(R.id.txtView);
-
-        }
-     }
-
     /**
      * This method is hte consturctor of HorizontalAdapterHolder
-     * @param horizontalList List<String> of collection data
-     * @param context Context of the application
+     *
+     * @param horizontalList           List<String> of collection data
+     * @param context                  Context of the application
      * @param nowMainActivityInterface NowMainActivityInterface
      */
     public HorizontalAdapterHolder(List<String> horizontalList, Context context, NowMainActivityInterface nowMainActivityInterface) {
@@ -73,7 +62,7 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
         holder.txtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.txtView.getCurrentTextColor() == mContext.getResources().getColor(R.color.textDeseable)) {
+                if (holder.txtView.getCurrentTextColor() == mContext.getResources().getColor(R.color.textDeseable)) {
 
                     holder.itemView.setBackground(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.backgroud_holder_enable, null));
                     holder.txtView.setTextColor(mContext.getResources().getColor(R.color.blue));
@@ -81,7 +70,7 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
                     // Keep track of the ChronoSync + Interest.
                     mNowMainActivityInterface.updateValueSelected(mHorizontalList.get(position));
 
-                }else{
+                } else {
 
                     holder.itemView.setBackground(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.backgorud_holder_item_desable, null));
                     holder.txtView.setTextColor(mContext.getResources().getColor(R.color.textDeseable));
@@ -92,12 +81,21 @@ public class HorizontalAdapterHolder extends RecyclerView.Adapter<HorizontalAdap
         });
     }
 
-
-
     @Override
     public int getItemCount() {
 
         return mHorizontalList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView txtView;
+
+        public MyViewHolder(View view) {
+            super(view);
+            txtView = view.findViewById(R.id.txtView);
+
+        }
     }
 
 }

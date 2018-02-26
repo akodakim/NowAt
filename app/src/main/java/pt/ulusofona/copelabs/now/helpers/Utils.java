@@ -2,9 +2,9 @@ package pt.ulusofona.copelabs.now.helpers;
 /**
  * This class is part of Now@ application. it provides general functions that are used for
  * help specific operations through the application.
+ *
  * @version 1.0
  * COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:07 PM
- *
  * @author Omar Aponte (COPELABS/ULHT)
  */
 

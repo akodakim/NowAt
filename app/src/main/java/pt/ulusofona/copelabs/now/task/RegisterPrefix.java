@@ -25,12 +25,11 @@ public class RegisterPrefix extends Observable {
 
     private String TAG = RegisterPrefix.class.getSimpleName();
 
-    private ChronoSync  mChronoSync;
+    private ChronoSync mChronoSync;
 
 
-
-    public RegisterPrefix(ChronoSync chornosync){
-        mChronoSync=chornosync;
+    public RegisterPrefix(ChronoSync chornosync) {
+        mChronoSync = chornosync;
         new RegisterPrefixTask().execute();
     }
 
@@ -76,7 +75,7 @@ public class RegisterPrefix extends Observable {
 
         }
 
-        private void insert(Name base_name){
+        private void insert(Name base_name) {
 
             try {
                 // Register the prefix

@@ -14,23 +14,21 @@ import java.util.Observer;
 import pt.ulusofona.copelabs.now.task.FetchChanges;
 import pt.ulusofona.copelabs.now.task.RegisterChronoSync;
 import pt.ulusofona.copelabs.now.task.RegisterPrefix;
+
 /**
  * ChonoSync class is based on ChonoSync2013. This class extend to observer and take car of start
  * different tasks in order to send data and receive data on top of ChronoSync2013
  *
- * @version 1.0
- * COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:08 PM
- *
  * @author Omar Aponte (COPELABS/ULHT)
+ * @version 1.0
+ *          COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:08 PM
  */
 
 
-public class ChronoSync extends Observable implements Observer  {
-
-    private String TAG = ChronoSync.class.getSimpleName();
+public class ChronoSync extends Observable implements Observer {
 
     public ChronoSync2013 mSync;
-
+    private String TAG = ChronoSync.class.getSimpleName();
     private NDNParameters mNDN;
 
     private Map<String, Long> mHighestRequested;
@@ -41,11 +39,12 @@ public class ChronoSync extends Observable implements Observer  {
 
     /**
      * Constructor of Chronosync class
+     *
      * @param ndn Object NDNParameters
      */
-    public ChronoSync (NDNParameters ndn){
+    public ChronoSync(NDNParameters ndn) {
 
-        mNDN=ndn;
+        mNDN = ndn;
         startChronoSync();
     }
 
@@ -53,14 +52,14 @@ public class ChronoSync extends Observable implements Observer  {
     @Override
     public void update(Observable o, Object arg) {
 
-        if( o instanceof RegisterPrefix) {
+        if (o instanceof RegisterPrefix) {
             Log.d(TAG, "Registered");
             new RegisterChronoSync(this).addObserver(this);
-        }else if(o instanceof RegisterChronoSync){
+        } else if (o instanceof RegisterChronoSync) {
             Log.d(TAG, "A change occurred");
-            new FetchChanges(this,String.valueOf(arg)).addObserver(this);
-        }else if (o instanceof FetchChanges){
-            Log.d(TAG,"New data fetched");
+            new FetchChanges(this, String.valueOf(arg)).addObserver(this);
+        } else if (o instanceof FetchChanges) {
+            Log.d(TAG, "New data fetched");
             setChanged();
             notifyObservers(String.valueOf(arg));
 
@@ -81,7 +80,7 @@ public class ChronoSync extends Observable implements Observer  {
         mHighestRequested = new HashMap<>();
 
         mRegisterPrefix = new RegisterPrefix(this);
-                mRegisterPrefix.addObserver(ChronoSync.this);
+        mRegisterPrefix.addObserver(ChronoSync.this);
 
 
     }
@@ -113,25 +112,28 @@ public class ChronoSync extends Observable implements Observer  {
 
     /**
      * Get the NDNParameters
+     *
      * @return NDNparameters Object
      */
-    public NDNParameters getNDN (){
+    public NDNParameters getNDN() {
         return mNDN;
     }
 
     /**
      * Get all the data that is synchronized by ChronoSync
+     *
      * @return ArrayList whit the Data
      */
-    public ArrayList<String> getDataHistory(){
+    public ArrayList<String> getDataHistory() {
         return mDataHistory;
     }
 
     /**
      * Get HighestRequested that keeping track the sequence number fro each user
+     *
      * @return Map
      */
-    public Map<String, Long> getHighestRequested(){
+    public Map<String, Long> getHighestRequested() {
         return mHighestRequested;
     }
 

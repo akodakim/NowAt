@@ -53,55 +53,35 @@ import pt.ulusofona.copelabs.now.ndn.NDNParameters;
  * where is displayed all post that user exchanges and a Holder with categories that user
  * can selected.
  * From this class is started ChonoSync, principal component of this application.
- * @version 1.0
- * COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:05 PM
  *
  * @author Omar Aponte (COPELABS/ULHT)
+ * @version 1.0
+ *          COPYRIGHTS COPELABS/ULHT, LGPLv3.0, 6/9/17 3:05 PM
  */
 
-public class NowMainActivity extends AppCompatActivity implements Observer, NowMainActivityInterface{
-
-    private static final int REQUEST_PATH = 1;
-
-    private TextView mLblNamePrefix;
-
-    private String TAG = NowMainActivity.class.getSimpleName();
-
-    private ArrayList <Message> mMenssages = new ArrayList<>();
-
-    private ArrayList <ChronoSync> mChronosyncs = new ArrayList<>();
-
-    private MessageArrayAdapter mMenssageAdapter;
-
-    private String interestSelected = null;
-
-    private Spinner mSpinner;
-
-    private ArrayAdapter<String> adapter;
-
-    private ArrayList<String> mInterestsSelected = new ArrayList<>();
-
-    private ArrayList<String> mInteresSubscribed = new ArrayList<>();
-
-    private ArrayList<String> mPrefixes = new ArrayList<>();
-
-    private int mPosition;
-
-    private Face mFace;
-
-    private User mUser;
-
-    private ChronoSync ChronoSync;
-
-    private EditText mEditText;
-
-    private Map <String, ChronoSync> mChonoSyncMap = new HashMap();
-
-    private NDNParameters mNDNParmiters;
+public class NowMainActivity extends AppCompatActivity implements Observer, NowMainActivityInterface {
 
     static final String MESSAGES = "messagues";
     static final String USER = "user";
-
+    private static final int REQUEST_PATH = 1;
+    private TextView mLblNamePrefix;
+    private String TAG = NowMainActivity.class.getSimpleName();
+    private ArrayList<Message> mMenssages = new ArrayList<>();
+    private ArrayList<ChronoSync> mChronosyncs = new ArrayList<>();
+    private MessageArrayAdapter mMenssageAdapter;
+    private String interestSelected = null;
+    private Spinner mSpinner;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> mInterestsSelected = new ArrayList<>();
+    private ArrayList<String> mInteresSubscribed = new ArrayList<>();
+    private ArrayList<String> mPrefixes = new ArrayList<>();
+    private int mPosition;
+    private Face mFace;
+    private User mUser;
+    private ChronoSync ChronoSync;
+    private EditText mEditText;
+    private Map<String, ChronoSync> mChonoSyncMap = new HashMap();
+    private NDNParameters mNDNParmiters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +89,7 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
         setContentView(R.layout.activity_now_main);
 
 
-            initialConfiguration();
+        initialConfiguration();
 
 
     }
@@ -118,10 +98,10 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
      * This method creates the first configuration when the app is started.
      * Here is set up the user interface, create a Face and Users information.
      */
-    public void initialConfiguration(){
+    public void initialConfiguration() {
 
         //Create a new Face
-        mFace= new Face("127.0.0.1");
+        mFace = new Face("127.0.0.1");
 
         //Create a new User
         mUser = new User(Utils.generateRandomName());
@@ -143,20 +123,20 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
         //Set up the RecyclerView with the interests
         final RecyclerView mHorizontalRecyclerView = findViewById(R.id.horizontal_recycler_view);
         final HorizontalAdapterHolder mHorizontalAdapterHolder = new HorizontalAdapterHolder(mHorizontalList, this, this);
-        mHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        mHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mHorizontalRecyclerView.setAdapter(mHorizontalAdapterHolder);
 
         //Set button to send message
         ImageButton mBtnSend = findViewById(R.id.imageButton);
         mBtnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(mInterestsSelected.isEmpty()) {
-                    Log.d(TAG,"Please select an Interest");
+                if (mInterestsSelected.isEmpty()) {
+                    Log.d(TAG, "Please select an Interest");
                     Toast.makeText(getApplicationContext(), "Please select an Interest", Toast.LENGTH_SHORT).show();
-                } else if(mEditText.getText().toString().isEmpty()) {
-                    Log.d(TAG,"Please write a message");
+                } else if (mEditText.getText().toString().isEmpty()) {
+                    Log.d(TAG, "Please write a message");
                     Toast.makeText(getApplicationContext(), "Please write a message", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     StringBuilder sb = new StringBuilder(interestSelected);
                     sb.deleteCharAt(0);
                     String interest = sb.toString();
@@ -176,8 +156,9 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
                     public void onItemSelected(AdapterView<?> parent,
                                                View v, int position, long id) {
                         interestSelected = parent.getItemAtPosition(position).toString();
-                        mPosition=position;
+                        mPosition = position;
                     }
+
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
                 });
@@ -192,41 +173,43 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-        case R.id.information:
-            //Show Dialog with the prefixes subscribed
-            Utils.showListPrefix(mPrefixes,this,"Prefixes list");
-            return (true);
+            case R.id.information:
+                //Show Dialog with the prefixes subscribed
+                Utils.showListPrefix(mPrefixes, this, "Prefixes list");
+                return (true);
 
-        case R.id.user_profile:
-            //Show Dialog whit username information
-            showUserName(mUser);
-            return(true);
+            case R.id.user_profile:
+                //Show Dialog whit username information
+                showUserName(mUser);
+                return (true);
 
-        case R.id.more:
+            case R.id.more:
 
-            //Start NDN-Opp. If it does not install in the device, GoolePlay will be launched to
-            //download it
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("pt.ulusofona.copelabs.ndn");
-            if (launchIntent != null) {
-                startActivity(launchIntent);
-            }else{
-                Log.d(TAG, "no existe");
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=pt.ulusofona.copelabs.now")));
-            }
-            return(true);
+                //Start NDN-Opp. If it does not install in the device, GoolePlay will be launched to
+                //download it
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("pt.ulusofona.copelabs.ndn");
+                if (launchIntent != null) {
+                    startActivity(launchIntent);
+                } else {
+                    Log.d(TAG, "no existe");
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=pt.ulusofona.copelabs.now")));
+                }
+                return (true);
 
-    }
-        return(super.onOptionsItemSelected(item));
+        }
+        return (super.onOptionsItemSelected(item));
     }
 
 
     /**
      * This method show the user name and allows to change it.
+     *
      * @param user User object
      */
-    public void showUserName(final User user){
+    public void showUserName(final User user) {
 
         final AlertDialog.Builder textBox = new AlertDialog.Builder(this);
         textBox.setTitle("Now@ User Name");
@@ -257,43 +240,45 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
 
     /**
      * This method bild a JSON Object whit the information that will be sent
-     * @param user User object
+     *
+     * @param user     User object
      * @param interest String interest of the message
-     * @param message String content of the message
+     * @param message  String content of the message
      */
-    public void jsonMessageConstructor(User user, String interest, String message){
+    public void jsonMessageConstructor(User user, String interest, String message) {
         final JSONObject jObject = new JSONObject();  // JSON object to store toast_message
 
-                try {
-                    jObject.put("data", message);
-                    jObject.put("type", "text");
-                    jObject.put("user", user.getName());
-                    jObject.put("interest", interest);
-                    jObject.put("date",Utils.getDate());
+        try {
+            jObject.put("data", message);
+            jObject.put("type", "text");
+            jObject.put("user", user.getName());
+            jObject.put("interest", interest);
+            jObject.put("date", Utils.getDate());
 
-                    sendData(jObject.toString(),interest.toLowerCase());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //Add message to list
-                mMenssages.add(new Message(user.getName(),message,interest,Utils.getDate()));
+            sendData(jObject.toString(), interest.toLowerCase());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //Add message to list
+        mMenssages.add(new Message(user.getName(), message, interest, Utils.getDate()));
 
-                //Notify changes
-                mMenssageAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), "Message sent", Toast.LENGTH_SHORT).show();
+        //Notify changes
+        mMenssageAdapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(), "Message sent", Toast.LENGTH_SHORT).show();
 
     }
 
     /**
      * This method subscribes the interests on Chronosync
+     *
      * @param interest String interest
      */
-    public void subscribeInterest(String interest){
+    public void subscribeInterest(String interest) {
 
         mNDNParmiters = new NDNParameters(mFace);
         mNDNParmiters.setUUID(UUID.randomUUID().toString());
-        mNDNParmiters.setApplicationBroadcastPrefix("/ndn/multicast/now/"+interest);
-        mNDNParmiters.setApplicationNamePrefix("/ndn/multicast/"+interest+"/"+ mNDNParmiters.getUUID());
+        mNDNParmiters.setApplicationBroadcastPrefix("/ndn/multicast/now/" + interest);
+        mNDNParmiters.setApplicationNamePrefix("/ndn/multicast/" + interest + "/" + mNDNParmiters.getUUID());
 
         mPrefixes.add(mNDNParmiters.getApplicationBroadcastPrefix());
         mPrefixes.add(mNDNParmiters.getmApplicationNamePrefix());
@@ -306,11 +291,12 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
 
         mInteresSubscribed.add(interest);
 
-        mChonoSyncMap.put(interest,ChronoSync);
+        mChonoSyncMap.put(interest, ChronoSync);
     }
 
     /**
      * This method takes the data and the interest to subscribe into ChronoSync
+     *
      * @param jsonData String based on json structure
      * @param interest String interest selected
      */
@@ -324,17 +310,17 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
 
     @Override
     public void update(Observable o, Object arg) {
-       if(o instanceof ChronoSync) {
-           Log.d(TAG,"Data reveived");
-           parseJSONReceiver(String.valueOf(arg),true);
-           updateListView();
-       }
+        if (o instanceof ChronoSync) {
+            Log.d(TAG, "Data reveived");
+            parseJSONReceiver(String.valueOf(arg), true);
+            updateListView();
+        }
     }
 
     /**
      * This method update the ListView using a Thread
      */
-    public void updateListView(){
+    public void updateListView() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -348,7 +334,7 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
     /**
      * Function to parse and draw the action mentioned in the passed JSON string
      *
-     * @param string the json representation of the action to be performed
+     * @param string       the json representation of the action to be performed
      * @param addToHistory if true, add the action to history
      */
     public void parseJSONReceiver(String string, boolean addToHistory) {
@@ -368,8 +354,8 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
                         String interest = jsonObject.getString("interest");
                         String date = jsonObject.getString("date");
 
-                        interestKey= jsonObject.getString("interest");
-                        mMenssages.add(new Message(username,message,interest,date));
+                        interestKey = jsonObject.getString("interest");
+                        mMenssages.add(new Message(username, message, interest, date));
 
                         break;
                     }
@@ -378,10 +364,10 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
                         throw new JSONException("Unrecognized string: " + string);
                 }
 
-                    if (addToHistory) {
-                        //ChronoSync.getDataHistory().add(string);
-                        mChonoSyncMap.get(interestKey.toLowerCase()).getDataHistory().add(string);
-                    }
+                if (addToHistory) {
+                    //ChronoSync.getDataHistory().add(string);
+                    mChonoSyncMap.get(interestKey.toLowerCase()).getDataHistory().add(string);
+                }
 
 
             } catch (JSONException e) {
@@ -394,61 +380,62 @@ public class NowMainActivity extends AppCompatActivity implements Observer, NowM
 
     @Override
     public void updateValueSelected(String interest) {
-        Log.d(TAG,"Interest " + interest);
+        Log.d(TAG, "Interest " + interest);
 
-        if(mInterestsSelected.contains("#"+interest)) {
+        if (mInterestsSelected.contains("#" + interest)) {
             Log.d(TAG, "Delete");
-            mInterestsSelected.remove("#"+interest);
+            mInterestsSelected.remove("#" + interest);
             mSpinner.setAdapter(adapter);
 
             mChonoSyncMap.get(interest.toLowerCase()).getNDN().setActivityStop(true);
             //mNDNParmiters.setActivityStop(true);
 
-        } else if(mInteresSubscribed.contains(interest.toLowerCase())){
+        } else if (mInteresSubscribed.contains(interest.toLowerCase())) {
             Log.d(TAG, "Contains");
-                //mNDNParmiters.setActivityStop(false);
-                mChonoSyncMap.get(interest.toLowerCase()).getNDN().setActivityStop(false);
-                interestSelected = interest;
-                mInterestsSelected.add("#" + interest);
-                mSpinner.setAdapter(adapter);
-                mSpinner.setSelection(mSpinner.getFirstVisiblePosition());
-            }else
-            {
-                Log.d(TAG, "Create");
-                subscribeInterest(interest.toLowerCase());
-                interestSelected = interest;
-                mInterestsSelected.add("#" + interest);
-                mSpinner.setAdapter(adapter);
-                mSpinner.setSelection(mSpinner.getFirstVisiblePosition());
-            }
+            //mNDNParmiters.setActivityStop(false);
+            mChonoSyncMap.get(interest.toLowerCase()).getNDN().setActivityStop(false);
+            interestSelected = interest;
+            mInterestsSelected.add("#" + interest);
+            mSpinner.setAdapter(adapter);
+            mSpinner.setSelection(mSpinner.getFirstVisiblePosition());
+        } else {
+            Log.d(TAG, "Create");
+            subscribeInterest(interest.toLowerCase());
+            interestSelected = interest;
+            mInterestsSelected.add("#" + interest);
+            mSpinner.setAdapter(adapter);
+            mSpinner.setSelection(mSpinner.getFirstVisiblePosition());
         }
+    }
 
-        @Override
-        public void onResume(){
-            super.onResume();
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        }
+    }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
-        Log.d(TAG,"save");
+        Log.d(TAG, "save");
         savedInstanceState.putString(USER, mUser.getName());
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         // Always call the superclass so it can restore the view hierarchy
         super.onRestoreInstanceState(savedInstanceState);
 
-        Log.d(TAG,"Restore");
+        Log.d(TAG, "Restore");
         // Restore state members from saved instance
-        mLblNamePrefix.setText( savedInstanceState.getString(USER));
+        mLblNamePrefix.setText(savedInstanceState.getString(USER));
     }
 
 
-    }
+}
 
 
 

@@ -21,11 +21,15 @@ public class RegisterChronoSync extends Observable {
 
     private ChronoSync mChronoSinc;
 
-    public RegisterChronoSync(ChronoSync ChronoSync){
-        mChronoSinc=ChronoSync;
+    public RegisterChronoSync(ChronoSync ChronoSync) {
+        mChronoSinc = ChronoSync;
         new RegisterChronoSyncTask(mChronoSinc).execute();
     }
 
+    public void setValue(String syncNameStr) {
+        setChanged();
+        notifyObservers(syncNameStr);
+    }
 
     public class RegisterChronoSyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -53,7 +57,7 @@ public class RegisterChronoSync extends Observable {
 
                 KeyChain testKeyChain = Utils.buildTestKeyChain();
 
-         mChronoSinc.mSync = new ChronoSync2013(new ChronoSync2013.OnReceivedSyncState() {
+                mChronoSinc.mSync = new ChronoSync2013(new ChronoSync2013.OnReceivedSyncState() {
 
                     @Override
                     public void onReceivedSyncState(List syncStates, boolean isRecovery) {
@@ -92,14 +96,14 @@ public class RegisterChronoSync extends Observable {
                                     Log.d(TAG, "Gaps in SYNC found. Sending Interest for missing pieces.");
                                     highestSeq++;
                                     while (highestSeq <= syncSeq) {
-                                        setValue(syncPrefix+"/"+highestSeq);
+                                        setValue(syncPrefix + "/" + highestSeq);
 
                                         new FetchChanges(mChronoSinc, syncPrefix + "/" + highestSeq);
                                         highestSeq++;
                                     }
                                     mChronoSinc.getHighestRequested().put(syncPrefix, syncSeq);
                                 }
-                            }  else {
+                            } else {
                                 mChronoSinc.getHighestRequested().put(syncPrefix, syncSeq);
                             }
                             String syncNameStr = syncPrefix + "/" + syncSeq;
@@ -142,9 +146,9 @@ public class RegisterChronoSync extends Observable {
 
 
                         //try to connect the chronosync
-                        if(attempt < 100000) {
+                        if (attempt < 100000) {
                             new RegisterChronoSyncTask(mChronoSinc, attempt + 1).execute();
-                        }else{
+                        } else {
                             new Runnable() {
                                 @Override
                                 public void run() {
@@ -154,7 +158,7 @@ public class RegisterChronoSync extends Observable {
 
                                 }
                             };
-                            attempt=1;
+                            attempt = 1;
 
                         }
                     }
@@ -174,11 +178,11 @@ public class RegisterChronoSync extends Observable {
         protected void onPostExecute(Void aVoid) {
             // Start the long running thread that keeps processing the events on the face every
             // few milliseconds
-           new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (true) {
-                        if(!mChronoSinc.getNDN().getAtivityStop()) {
+                        if (!mChronoSinc.getNDN().getAtivityStop()) {
                             try {
                                 Thread.sleep(100);
                                 //Log.d(TAG, "**"+ mChronoSinc.getNDN().getmApplicationNamePrefix());
@@ -198,11 +202,5 @@ public class RegisterChronoSync extends Observable {
                 }
             }).start();
         }
-    }
-
-
-    public void setValue(String syncNameStr){
-        setChanged();
-        notifyObservers(syncNameStr);
     }
 }

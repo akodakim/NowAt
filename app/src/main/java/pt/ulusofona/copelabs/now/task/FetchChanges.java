@@ -15,13 +15,13 @@ import java.util.Observable;
 import pt.ulusofona.copelabs.now.ndn.ChronoSync;
 
 
-public class FetchChanges extends Observable{
+public class FetchChanges extends Observable {
 
 
     private String TAG = FetchChanges.class.getSimpleName();
 
-    public FetchChanges(ChronoSync ChronoSync, String namePrefixStr){
-        new FetchChangesTask(ChronoSync,namePrefixStr).execute();
+    public FetchChanges(ChronoSync ChronoSync, String namePrefixStr) {
+        new FetchChangesTask(ChronoSync, namePrefixStr).execute();
     }
 
     public class FetchChangesTask extends AsyncTask<Void, Void, Void> {
@@ -29,8 +29,8 @@ public class FetchChanges extends Observable{
 
         String namePrefixStr;
         boolean m_shouldStop = false;
+        String m_retVal;
         private ChronoSync mChronoSync;
-
 
         // Constructors
         public FetchChangesTask(ChronoSync ChronoSync, String namePrefixStr) {
@@ -38,8 +38,6 @@ public class FetchChanges extends Observable{
             this.namePrefixStr = namePrefixStr;
 
         }
-
-        String m_retVal;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -72,7 +70,6 @@ public class FetchChanges extends Observable{
                         }
                     }
                 });
-
 
 
             } catch (IOException e) {
